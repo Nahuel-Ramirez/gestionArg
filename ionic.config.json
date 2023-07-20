@@ -1,0 +1,8 @@
+{
+  "name": "primer-blog",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite",
+  "id": "51bfd34c"
+}
