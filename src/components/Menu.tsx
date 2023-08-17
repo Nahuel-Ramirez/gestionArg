@@ -40,8 +40,8 @@ const appPages: AppPage[] = [
     mdIcon: people,
   },
   {
-    title: "Ventas",
-    url: "/page/sales",
+    title: "Proveedores",
+    url: "/page/suppliers",
     iosIcon: bagCheckSharp,
     mdIcon: bagCheckSharp,
   },
@@ -62,8 +62,8 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Home</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <IonListHeader>GestionArg🧑‍💻</IonListHeader>
+          <IonNote>¡Bienvenido!😀</IonNote>
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>

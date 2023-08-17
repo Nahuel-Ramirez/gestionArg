@@ -45,15 +45,15 @@ const CustomerEdit: React.FC = () => {
     search();
   }, []);
 
-  const search = () => {
+  const search = async () => {
     if (id !== "new") {
-      let result = searchCustomerById(id);
+      let result = await searchCustomerById(id);
       setCustomer(result);
     }
   };
 
-  const save = () => {
-    saveCustomer(customer);
+  const save = async () => {
+    await saveCustomer(customer);
     history.push("/page/customers");
   };
 
@@ -90,12 +90,12 @@ const CustomerEdit: React.FC = () => {
                 <IonItem>
                   <IonInput
                     onIonChange={(e) =>
-                      (customer.firstname = String(e.detail.value))
+                      (customer.firstName = String(e.detail.value))
                     }
                     label="Nombre"
-                    labelPlacement="stacked"
+                    labelPlacement="floating"
                     placeholder="Enter text"
-                    value={customer.firstname}
+                    value={customer.firstName}
                   ></IonInput>
                 </IonItem>
               </IonCol>
@@ -103,12 +103,12 @@ const CustomerEdit: React.FC = () => {
                 <IonItem>
                   <IonInput
                     onIonChange={(e) =>
-                      (customer.lastname = String(e.detail.value))
+                      (customer.lastName = String(e.detail.value))
                     }
                     label="Apellido"
-                    labelPlacement="stacked"
+                    labelPlacement="floating"
                     placeholder="Enter text"
-                    value={customer.lastname}
+                    value={customer.lastName}
                   ></IonInput>
                 </IonItem>
               </IonCol>
@@ -122,7 +122,7 @@ const CustomerEdit: React.FC = () => {
                       (customer.email = String(e.detail.value))
                     }
                     label="Email"
-                    labelPlacement="stacked"
+                    labelPlacement="floating"
                     placeholder="Enter text"
                     value={customer.email}
                   ></IonInput>
@@ -135,7 +135,7 @@ const CustomerEdit: React.FC = () => {
                       (customer.phone = String(e.detail.value))
                     }
                     label="Telefono"
-                    labelPlacement="stacked"
+                    labelPlacement="floating"
                     placeholder="Enter text"
                     value={customer.phone}
                   ></IonInput>
@@ -151,7 +151,7 @@ const CustomerEdit: React.FC = () => {
                       (customer.address = String(e.detail.value))
                     }
                     label="Direccion"
-                    labelPlacement="stacked"
+                    labelPlacement="floating"
                     placeholder="Enter text"
                     value={customer.address}
                   ></IonInput>

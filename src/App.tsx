@@ -29,8 +29,8 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import CustomerList from "./pages/customer/CustomerList";
 import CustomerEdit from "./pages/customer/CustomerEdit";
-import SalesList from "./pages/sales/SalesList";
-import SalesEdit from "./pages/sales/SalesEdit";
+import SalesList from "./pages/sales/SupplierList";
+import SalesEdit from "./pages/sales/SupplierEdit";
 import EmployeeList from "./pages/employee/EmployeeList";
 import EmployeeEdit from "./pages/employee/EmployeeEdit";
 
@@ -59,13 +59,13 @@ const App: React.FC = () => {
               <CustomerEdit />
             </Route>
 
-            {/* Sales */}
+            {/* Suppliers */}
 
-            <Route path="/page/sales" exact={true}>
+            <Route path="/page/suppliers" exact={true}>
               <SalesList />
             </Route>
 
-            <Route path="/page/sales/:id" exact={true}>
+            <Route path="/page/suppliers/:id" exact={true}>
               <SalesEdit />
             </Route>
 

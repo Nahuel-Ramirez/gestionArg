@@ -33,6 +33,7 @@ import {
   searchEmployee,
   searchEmployeeById,
 } from "./EmployeeApi";
+import Swal from "sweetalert2";
 import Employee from "./Employee";
 
 const EmployeeEdit: React.FC = () => {
@@ -45,15 +46,15 @@ const EmployeeEdit: React.FC = () => {
     search();
   }, []);
 
-  const search = () => {
+  const search = async () => {
     if (id !== "new") {
-      let result = searchEmployeeById(id);
+      let result = await searchEmployeeById(id);
       setEmployee(result);
     }
   };
 
-  const save = () => {
-    saveEmployee(employee);
+  const save = async () => {
+    await saveEmployee(employee);
     history.push("/page/employees");
   };
 
@@ -90,12 +91,12 @@ const EmployeeEdit: React.FC = () => {
                 <IonItem>
                   <IonInput
                     onIonChange={(e) =>
-                      (employee.firstname = String(e.detail.value))
+                      (employee.firstName = String(e.detail.value))
                     }
                     label="Nombre"
-                    labelPlacement="stacked"
-                    placeholder="Enter text"
-                    value={employee.firstname}
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
+                    value={employee.firstName}
                   ></IonInput>
                 </IonItem>
               </IonCol>
@@ -103,12 +104,12 @@ const EmployeeEdit: React.FC = () => {
                 <IonItem>
                   <IonInput
                     onIonChange={(e) =>
-                      (employee.lastname = String(e.detail.value))
+                      (employee.lastName = String(e.detail.value))
                     }
                     label="Apellido"
-                    labelPlacement="stacked"
-                    placeholder="Enter text"
-                    value={employee.lastname}
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
+                    value={employee.lastName}
                   ></IonInput>
                 </IonItem>
               </IonCol>
@@ -122,8 +123,8 @@ const EmployeeEdit: React.FC = () => {
                       (employee.email = String(e.detail.value))
                     }
                     label="Email"
-                    labelPlacement="stacked"
-                    placeholder="Enter text"
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
                     value={employee.email}
                   ></IonInput>
                 </IonItem>
@@ -135,8 +136,8 @@ const EmployeeEdit: React.FC = () => {
                       (employee.phone = String(e.detail.value))
                     }
                     label="Telefono"
-                    labelPlacement="stacked"
-                    placeholder="Enter text"
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
                     value={employee.phone}
                   ></IonInput>
                 </IonItem>
@@ -151,13 +152,25 @@ const EmployeeEdit: React.FC = () => {
                       (employee.address = String(e.detail.value))
                     }
                     label="Direccion"
-                    labelPlacement="stacked"
-                    placeholder="Enter text"
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
                     value={employee.address}
                   ></IonInput>
                 </IonItem>
               </IonCol>
-              <IonCol></IonCol>
+              <IonCol>
+                <IonItem>
+                  <IonInput
+                    onIonChange={(e) =>
+                      (employee.salary = Number(e.detail.value))
+                    }
+                    label="Salario"
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
+                    value={employee.salary}
+                  ></IonInput>
+                </IonItem>
+              </IonCol>
             </IonRow>
 
             <IonRow>

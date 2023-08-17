@@ -27,33 +27,42 @@ import {
   pencilOutline,
 } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { searchSale, saveSale, searchSaleById } from "./SalesApi";
-import Sales from "../sales/Sales";
+import {
+  searchSupplier,
+  saveSupplier,
+  searchSupplierById,
+} from "./SupplierApi";
+import Supplier from "./Supplier";
 
-const SalesEdit: React.FC = () => {
+const SupplierEdit: React.FC = () => {
   const { name, id } = useParams<{ name: string; id: string }>();
 
-  const [sale, setSale] = useState<Sales>({});
+  const [supplier, setSupplier] = useState<Supplier>({
+    id: "",
+    name: "",
+    email: "",
+    web: "",
+  });
   const history = useHistory();
 
   useEffect(() => {
     search();
   }, []);
 
-  const search = () => {
+  const search = async () => {
     if (id !== "new") {
-      let result = searchSaleById(id);
-      setSale(result);
+      let result = await searchSupplierById(id);
+      setSupplier(result);
     }
   };
 
-  const save = () => {
-    saveSale(sale);
-    history.push("/page/sales");
+  const save = async () => {
+    await saveSupplier(supplier);
+    history.push("/page/suppliers");
   };
 
   const cancel = () => {
-    history.push("/page/sales");
+    history.push("/page/suppliers");
   };
 
   return (
@@ -77,21 +86,46 @@ const SalesEdit: React.FC = () => {
         <IonContent>
           <IonCard>
             <IonTitle>
-              {id === "new" ? "Agregar venta" : "Editar venta"}
+              {id === "new" ? "Agregar proveedor" : "Editar proveedor"}
             </IonTitle>
 
             <IonRow>
-              <IonCol></IonCol>
               <IonCol>
                 <IonItem>
                   <IonInput
                     onIonChange={(e) =>
-                      (sale.type = String(e.detail.value).toUpperCase())
+                      (supplier.name = String(e.detail.value))
                     }
-                    label="Tipo de factura"
-                    labelPlacement="stacked"
-                    placeholder="A, B o C..."
-                    value={sale.type}
+                    label="Nombre"
+                    labelPlacement="floating"
+                    placeholder="Ingrese aqui..."
+                    value={supplier.name}
+                  ></IonInput>
+                </IonItem>
+              </IonCol>
+              <IonCol>
+                <IonItem>
+                  <IonInput
+                    onIonChange={(e) => {
+                      supplier.email = String(e.detail.value);
+                    }}
+                    label="Email"
+                    labelPlacement="floating"
+                    placeholder="Ingrese aqui..."
+                    value={supplier.email}
+                  ></IonInput>
+                </IonItem>
+              </IonCol>
+              <IonCol>
+                <IonItem>
+                  <IonInput
+                    onIonChange={(e) => {
+                      supplier.phone = String(e.detail.value);
+                    }}
+                    label="Telefono"
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
+                    value={supplier.phone}
                   ></IonInput>
                 </IonItem>
               </IonCol>
@@ -102,20 +136,12 @@ const SalesEdit: React.FC = () => {
                 <IonItem>
                   <IonInput
                     onIonChange={(e) => {
-                      if (e.detail.value) {
-                        sale.date = new Date(e.detail.value);
-                      } else {
-                        sale.date = new Date();
-                      }
+                      supplier.address = String(e.detail.value);
                     }}
-                    label="Fecha"
-                    labelPlacement="stacked"
-                    placeholder={
-                      sale.date
-                        ? sale.date.toLocaleDateString()
-                        : "Seleccione una fecha"
-                    }
-                    value={sale.date ? sale.date.toLocaleDateString() : ""}
+                    label="Direccion"
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
+                    value={supplier.address}
                   ></IonInput>
                 </IonItem>
               </IonCol>
@@ -123,12 +149,25 @@ const SalesEdit: React.FC = () => {
                 <IonItem>
                   <IonInput
                     onIonChange={(e) => {
-                      sale.total = Number(e.detail.value);
+                      supplier.web = String(e.detail.value);
                     }}
-                    label="Total"
-                    labelPlacement="stacked"
-                    placeholder="Enter text"
-                    value={sale.total}
+                    label="Web"
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
+                    value={supplier.web}
+                  ></IonInput>
+                </IonItem>
+              </IonCol>
+              <IonCol>
+                <IonItem>
+                  <IonInput
+                    onIonChange={(e) => {
+                      supplier.contact = String(e.detail.value);
+                    }}
+                    label="Contacto"
+                    labelPlacement="floating"
+                    placeholder="Escriba aqui..."
+                    value={supplier.contact}
                   ></IonInput>
                 </IonItem>
               </IonCol>
@@ -169,4 +208,4 @@ const SalesEdit: React.FC = () => {
   );
 };
 
-export default SalesEdit;
+export default SupplierEdit;

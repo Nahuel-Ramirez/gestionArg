@@ -19,6 +19,7 @@ import ExploreContainer from "../../components/ExploreContainer";
 import { add, close, pencilOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { removeEmployee, searchEmployee } from "./EmployeeApi";
+import Swal from "sweetalert2";
 import Employee from "./Employee";
 
 const EmployeeList: React.FC = () => {
@@ -27,17 +28,18 @@ const EmployeeList: React.FC = () => {
   const [clientes, setClientes] = useState<Employee[]>([]);
   const history = useHistory();
 
+
   useEffect(() => {
     search();
   }, [history.location.pathname]);
 
-  const search = () => {
-    let result = searchEmployee();
+  const search = async () => {
+    let result = await searchEmployee();
     setClientes(result);
   };
 
-  const remove = (id: string) => {
-    removeEmployee(id);
+  const remove = async (id: string) => {
+    await removeEmployee(id);
     search();
   };
 
@@ -102,17 +104,19 @@ const EmployeeList: React.FC = () => {
                 <IonCol>Email</IonCol>
                 <IonCol>Telefono</IonCol>
                 <IonCol>Direccion</IonCol>
+                <IonCol>Salario</IonCol>
                 <IonCol>Acciones</IonCol>
               </IonRow>
 
               {clientes.map((cliente: Employee) => (
                 <IonRow>
                   <IonCol>
-                    {cliente.firstname} {cliente.lastname}
+                    {cliente.firstName} {cliente.lastName}
                   </IonCol>
                   <IonCol>{cliente.email}</IonCol>
                   <IonCol>{cliente.phone}</IonCol>
                   <IonCol>{cliente.address}</IonCol>
+                  <IonCol>${cliente.salary}</IonCol>
                   <IonCol>
                     <IonButton
                       color="primary"

@@ -9,6 +9,7 @@ import {
   IonIcon,
   IonItem,
   IonMenuButton,
+  IonNavLink,
   IonPage,
   IonRow,
   IonTitle,
@@ -18,49 +19,37 @@ import { useHistory, useParams } from "react-router";
 import ExploreContainer from "../../components/ExploreContainer";
 import { add, close, pencilOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { searchSale } from "./SalesApi";
-import Sales from "../sales/Sales";
+import { removeSupplier, searchSupplier } from "./SupplierApi";
+import Supplier from "./Supplier";
 
-const SalesList: React.FC = () => {
+const SupplierList: React.FC = () => {
   const { name } = useParams<{ name: string }>();
 
-  const [sales, setSales] = useState<Sales[]>([]);
+  const [supplier, setSupplier] = useState<Supplier[]>([]);
   const history = useHistory();
 
   useEffect(() => {
     search();
   }, [history.location.pathname]);
 
-  const search = () => {
-    let result = searchSale();
-    setSales(result);
+  const search = async () => {
+    let result = await searchSupplier();
+    setSupplier(result);
   };
 
-  // const remove = (id: string) => {
-  //   removeCustomer(id);
-  //   search();
-  // };
-
-  // const pruebaLocalStorage = () => {
-  //   const ejemplo = {
-  //     id: "1",
-  //     firstname: "nahuel",
-  //     lastname: "ramirez",
-  //     email: "nahuel-ramirez@hotmail.com",
-  //     phone: "1122554477",
-  //     address: "calle 123",
-  //   };
-  //   saveCustomer(ejemplo);
-  // };
-
-  const addSale = () => {
-    history.push("/page/sales/new");
+  const addSupplier = () => {
+    history.push("/page/suppliers/new");
     window.location.reload();
   };
 
-  const editSale = (id: string) => {
-    history.push("/page/sales/" + id);
+  const edit = (id: string) => {
+    history.push("/page/suppliers/" + id);
     window.location.reload();
+  };
+
+  const remove = async (id: string) => {
+    await removeSupplier(id);
+    search();
   };
 
   return (
@@ -84,39 +73,46 @@ const SalesList: React.FC = () => {
         <IonContent>
           <IonCard>
             <IonItem>
-              <IonTitle>Ventas</IonTitle>
+              <IonTitle>Proveedores</IonTitle>
               <IonButton
-                onClick={addSale}
+                onClick={addSupplier}
                 color="primary"
                 fill="outline"
                 slot="end"
               >
                 <IonIcon icon={add} />
-                Agregar Venta
+                Agregar Proveedor
               </IonButton>
             </IonItem>
 
             <IonGrid className="table">
               <IonRow>
-                <IonCol>Factura</IonCol>
-                <IonCol>Tipo</IonCol>
-                <IonCol>Fecha</IonCol>
-                <IonCol>Total</IonCol>
+                <IonCol>Nombre</IonCol>
+                <IonCol>Email</IonCol>
+                <IonCol>Telefono</IonCol>
+                <IonCol>Direccion</IonCol>
+                <IonCol>Web</IonCol>
+                <IonCol>Contacto</IonCol>
                 <IonCol>Acciones</IonCol>
               </IonRow>
 
-              {sales.map((sales: Sales) => (
+              {supplier.map((supplier: Supplier) => (
                 <IonRow>
-                  <IonCol>{sales.id}</IonCol>
-                  <IonCol>{sales.type}</IonCol>
-                  <IonCol>{String(sales.date)}</IonCol>
-                  <IonCol>{sales.total}</IonCol>
+                  <IonCol>{supplier.name}</IonCol>
+                  <IonCol>{supplier.email}</IonCol>
+                  <IonCol>{supplier.phone}</IonCol>
+                  <IonCol>{supplier.address}</IonCol>
+                  <IonCol>
+                    <a href="">{supplier.web}</a>
+                  </IonCol>
+                  <IonCol>{supplier.contact}</IonCol>
+
                   <IonCol>
                     <IonButton
                       color="primary"
                       fill="clear"
                       size="small"
-                      // onClick={() => editCustomer(String(cliente.id))}
+                      onClick={() => edit(String(supplier.id))}
                     >
                       <IonIcon icon={pencilOutline} />
                     </IonButton>
@@ -125,7 +121,7 @@ const SalesList: React.FC = () => {
                       color="danger"
                       fill="clear"
                       size="small"
-                      // onClick={() => remove(String(cliente.id))}
+                      onClick={() => remove(String(supplier.id))}
                     >
                       <IonIcon icon={close} />
                     </IonButton>
@@ -149,4 +145,4 @@ const SalesList: React.FC = () => {
   );
 };
 
-export default SalesList;
+export default SupplierList;

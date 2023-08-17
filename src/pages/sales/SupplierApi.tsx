@@ -1,7 +1,7 @@
-import Customer from "./Customer";
+import Supplier from "./Supplier";
 
-export async function searchCustomer() {
-  let url = import.meta.env.VITE_REACT_APP_API + "customers";
+export async function searchSupplier() {
+  let url = import.meta.env.VITE_REACT_APP_API + "suppliers";
   let response = await fetch(url, {
     method: "GET",
     headers: {
@@ -11,8 +11,8 @@ export async function searchCustomer() {
   return await response.json();
 }
 
-export async function removeCustomer(id: string) {
-  let url = import.meta.env.VITE_REACT_APP_API + "customers/" + id;
+export async function removeSupplier(id: string) {
+  let url = import.meta.env.VITE_REACT_APP_API + "suppliers/" + id;
   await fetch(url, {
     method: "DELETE",
     headers: {
@@ -21,19 +21,19 @@ export async function removeCustomer(id: string) {
   });
 }
 
-export async function saveCustomer(customer: Customer) {
-  let url = import.meta.env.VITE_REACT_APP_API + "customers";
+export async function saveSupplier(supplier: Supplier) {
+  let url = import.meta.env.VITE_REACT_APP_API + "suppliers";
   await fetch(url, {
     method: "POST",
-    body: JSON.stringify(customer),
+    body: JSON.stringify(supplier),
     headers: {
       "Content-Type": "application/json",
     },
   });
 }
 
-export async function searchCustomerById(id: string) {
-  let url = import.meta.env.VITE_REACT_APP_API + "customers/" + id;
+export async function searchSupplierById(id: string) {
+  let url = import.meta.env.VITE_REACT_APP_API + "suppliers/" + id;
   let response = await fetch(url, {
     method: "GET",
     headers: {
