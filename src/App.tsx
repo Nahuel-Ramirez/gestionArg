@@ -4,7 +4,7 @@ import {
   IonSplitPane,
   setupIonicReact,
 } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
+import { IonReactHashRouter } from "@ionic/react-router";
 import { Redirect, Route } from "react-router-dom";
 import Menu from "./components/Menu";
 import Page from "./pages/Page";
@@ -27,10 +27,12 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+
+
 import CustomerList from "./pages/customer/CustomerList";
 import CustomerEdit from "./pages/customer/CustomerEdit";
-import SalesList from "./pages/sales/SupplierList";
-import SalesEdit from "./pages/sales/SupplierEdit";
+import SalesList from "./pages/supplier/SupplierList";
+import SalesEdit from "./pages/supplier/SupplierEdit";
 import EmployeeList from "./pages/employee/EmployeeList";
 import EmployeeEdit from "./pages/employee/EmployeeEdit";
 
@@ -39,12 +41,12 @@ setupIonicReact();
 const App: React.FC = () => {
   return (
     <IonApp>
-      <IonReactRouter>
+      <IonReactHashRouter>
         <IonSplitPane contentId="main">
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/" exact={true}>
-              <Redirect to="/page/customers" />
+              <Redirect to="/page/Inbox" />
             </Route>
 
             <Route path="/page/customers" exact={true}>
@@ -80,7 +82,7 @@ const App: React.FC = () => {
             </Route>
           </IonRouterOutlet>
         </IonSplitPane>
-      </IonReactRouter>
+      </IonReactHashRouter>
     </IonApp>
   );
 };

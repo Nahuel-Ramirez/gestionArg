@@ -15,7 +15,6 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useHistory, useParams } from "react-router";
-import ExploreContainer from "../../components/ExploreContainer";
 import { add, close, pencilOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { removeCustomer, searchCustomer } from "./CustomerApi";
@@ -40,18 +39,6 @@ const CustomerList: React.FC = () => {
     await removeCustomer(id);
     search();
   };
-
-  // const pruebaLocalStorage = () => {
-  //   const ejemplo = {
-  //     id: "1",
-  //     firstname: "nahuel",
-  //     lastname: "ramirez",
-  //     email: "nahuel-ramirez@hotmail.com",
-  //     phone: "1122554477",
-  //     address: "calle 123",
-  //   };
-  //   saveCustomer(ejemplo);
-  // };
 
   const addCustomer = () => {
     history.push("/page/customer/new");
@@ -105,8 +92,8 @@ const CustomerList: React.FC = () => {
                 <IonCol>Acciones</IonCol>
               </IonRow>
 
-              {clientes.map((cliente: Customer) => (
-                <IonRow>
+              {clientes.map((cliente: Customer, id) => (
+                <IonRow key={id}>
                   <IonCol>
                     {cliente.firstName} {cliente.lastName}
                   </IonCol>
