@@ -16,7 +16,6 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { useHistory, useParams } from "react-router";
-import ExploreContainer from "../../components/ExploreContainer";
 import {
   add,
   checkbox,
